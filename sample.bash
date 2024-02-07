@@ -1,6 +1,7 @@
 #/usr/bin/bash
 
-gcc src/main.c src/option.c -o test
-rm index.html 
-./test test.txt
+gcc src/EditStr.c src/main.c src/option.c src/FileMaker.c -o test
+rm index.html
+sleep 1
+./test test.txt -t sample -n hhh.html
 code index.html 

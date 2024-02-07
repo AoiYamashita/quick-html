@@ -1,42 +1,32 @@
-
-#include "stdio.h"
 #include "option.h"
 
-void op_tag(Command_* commands,char* tag[]){
-    if(*tag == "-t"){
+int op_tag(Command_* commands,char* tag[]){
+    int i = 0;
+    if(isEqual(*tag,"-t")){
         tag++;
-        int i = 0;
-        while(*(*tag) != '\0'){
-            *commands->text_path = *(*tag);
-            *tag++;
-            i++;
-        }
+        i++;
+        str_copy(&(*commands->title),*tag);
     }
-    else if(*tag == "-n"){
+    else if(isEqual(*tag,"-n")){
         tag++;
-        int i = 0;
-        while(*(*tag) != '\0'){
-            *commands->text_path = *(*tag);
-            *tag++;
-            i++;
-        }
+        i++;
+        str_copy(&(*commands->file_name),*tag);
     }else{
-        printf("Can't no expect option");
+        printf("Can't no expect option\n");
         //exit(1);
     }
+    return i;
 };
 
-void option(Command_* commands,char* argv[]){
-    argv++;
+void option(Command_* commands,int argc,char* argv[]){
     int i = 0;
-    while(*(*argv) != '\0'){
-        (*commands->text_path) = *(*argv);
-        *argv++;
-        i++;
-    }
     argv++;
-    while(*argv != NULL){
-        op_tag(commands,argv);
-        argv++;
+    i+=2;
+    str_copy(&(*commands->text_path),*argv);
+    argv++;
+    while(i < argc){
+        int t = op_tag(commands,argv);
+        i += t+1;
+        argv += t+1;
     }
 }

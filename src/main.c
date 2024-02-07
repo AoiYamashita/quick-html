@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include "EditStr.h"
 #include "option.h"
+#include "FileMaker.h"
 
 Command_ file_data = {".text","index.html","Document"};
 
@@ -12,7 +14,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    option(&file_data,argv);
+    option(&file_data,argc,argv);
 
     //read text file
     FILE *read_file;
@@ -47,7 +49,9 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    char innerHtml[] = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>%s</title>\n</head>\n<body>\n";
+    char innerHtml[256];
+
+    initFile(innerHtml);
 
     fprintf(html_file,innerHtml,file_data.title);
 
