@@ -2,16 +2,32 @@
 #include "stdio.h"
 #include "EditStr.h"
 
-void str_copy(char* tostr,char* formstr){
-    while(*formstr != '\0'){
-        *tostr = *formstr;
-        formstr++;
+void str_cat(char* basestr,char* addstr){
+    while(*basestr != '\0')basestr++;
+    while(*addstr != '\0'){
+        *basestr = *addstr;
+        addstr++;
+        basestr++;
+    }
+    return;
+}
+
+void str_copy(char* tostr,char* fromstr){
+    while(*fromstr != '\0'){
+        *tostr = *fromstr;
+        fromstr++;
         tostr++;
     }
     while(*tostr != '\0'){
         *tostr = '\0';
         tostr++;
     }
+    return;
+}
+
+void add_char(char* base,char add){
+    while(*base != '\0')base++;
+    *base = add;
     return;
 }
 

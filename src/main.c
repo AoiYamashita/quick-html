@@ -5,7 +5,7 @@
 
 Command_ file_data = {".text","index.html","Document"};
 
-char *code[] = {"p","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","h","0","0","a src","0","0","0","ul","ol","0","0","0","0","0","0","0","0","0","0","0","0","0","0","input","0","0","0","0","canvas","img","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","br","0","0","botton","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","table","0","0","0","0"};
+//char *code[] = {"p","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","h","0","0","a src","0","0","0","ul","ol","0","0","0","0","0","0","0","0","0","0","0","0","0","0","input","0","0","0","0","canvas","img","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","br","0","0","botton","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","table","0","0","0","0"};
 
 int main(int argc, char* argv[]){
     //No input
@@ -14,7 +14,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
 
-    option(&file_data,argc,argv);
+    option(&file_data,argc,argv);    
 
     //read text file
     FILE *read_file;
@@ -55,18 +55,21 @@ int main(int argc, char* argv[]){
 
     fprintf(html_file,innerHtml,file_data.title);
 
+    MakeFile(read_file,html_file);
+    /*
     char text_data[] = "";
-
+    
     while(fscanf(read_file, "%s", text_data) > 0){
-        char *text_p = &text_data[0];
-        char tag_[100] = "";
+        char *text_p = text_data;
         int tag_flag = 0;
+        char tag_data[] = "";
+        printf("%s\n",text_data);
         //search tag
         while(code[(int)(*text_p)] != "0"){
             if(tag_flag == 0){
                 char *code_ = code[(int)(*text_p)];
                 while(*code_ != '\0'){
-                    tag_[tag_flag] = *code_;
+                    tag_data[tag_flag] = *code_;
                     tag_flag++;
                     code_++;
                 }
@@ -75,18 +78,20 @@ int main(int argc, char* argv[]){
             tag_flag++;
             text_p++;
         }
-        if(tag_[0] == 'h'){
-            tag_[1] = tag_flag+'0';
+        if(tag_data[0] == 'h'){
+            tag_data[1] = tag_flag+'0';
         }
-        fprintf(html_file,"<%s>",tag_);
+        fprintf(html_file,"<%s>",tag_data);
         //write text
         while(*text_p != '\0'){
             fprintf(html_file,"%c",*text_p);
             text_p++;
         }
+        fprintf(html_file,"%s",text_p);
         //end tag
-        fprintf(html_file,"</%s>\n",tag_);
+        fprintf(html_file,"</%s>\n",tag_data);
     }
+    */
     fprintf(html_file,"\n</body>\n</html>\n");
     fclose(html_file);
     fclose(read_file);
