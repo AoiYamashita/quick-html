@@ -8,6 +8,8 @@ void initFile(char* file){
     return;
 }
 
+char* tag_base[] = {"<",">","</"};
+
 char* MakeFrase(char* txt_data){
     char html_data[100000] = "";
     char tag[100] = "";
@@ -20,7 +22,7 @@ char* MakeFrase(char* txt_data){
             if(code[(int)*txt_data] == tag || (tag[0] == code[(int)*txt_data][0] && code[(int)*txt_data][0] == 'h')){
                 char tag_frase[] = "</";
                 str_cat(tag_frase,tag);
-                str_cat(tag_frase,">");
+                str_cat(tag_frase,tag_base[1]);
                 str_cat(html_data,tag_frase);
 
                 str_copy(txt_data,html_data);
@@ -38,19 +40,26 @@ char* MakeFrase(char* txt_data){
             }
             char tag_frase[10000] = "<";
             str_cat(tag_frase,tag);
-            str_cat(tag_frase,">");
+            str_cat(tag_frase,tag_base[1]);
             str_cat(html_data,tag_frase);
         }else{
             add_char(html_data,*txt_data);
         }
         txt_data++;
     }
-    printf("%d %d %d %d %d \n",html_data[0],html_data[1],html_data[2],html_data[3],html_data[4]);
+    
+    if(isEqual(tag,"")){
+        char html[1000] = "<p>";
+        str_cat(html,html_data);
+        str_copy(html_data,html);
+        str_copy(tag,code[0]);
+    }
+    //printf("%d %d %d %d %d %d %d %d %d %d\n",tag[0],tag[1],tag[2],tag[3],tag[4],tag[5],tag[6],tag[7],tag[8],tag[9]);
     char tag_frase[] = "</";
     str_cat(tag_frase,tag);
-    str_cat(tag_frase,">");
+    //printf("%s %s\n",tag,tag_frase);
+    str_cat(tag_frase,tag_base[1]);
     str_cat(html_data,tag_frase);
-
     str_copy(txt_data,html_data);
     return txt_data;
 }
